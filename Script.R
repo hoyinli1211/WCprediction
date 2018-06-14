@@ -26,5 +26,12 @@ df.schedule2 <- read.csv(file=url2)
 View(df.schedule1)
 View(df.schedule2)
 
+v.cty <- as.character(df.schedule2$team)
+
+#historical match result
 url3 <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/historical.csv"
 df.result <- read.csv(url3)
+df.result2 <- df.result %>%
+                filter(home_team %in% v.cty | away_team %in% v.cty)
+
+
