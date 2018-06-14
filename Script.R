@@ -39,6 +39,6 @@ df.result2 <- df.result %>%
                 filter(home_team %in% v.cty | away_team %in% v.cty)
 
 #players data
-url4 <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/Players.csv"
+url4 <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/Player.csv"
 df.player <- read.csv(url4)
 View(df.player)
