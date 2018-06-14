@@ -2,6 +2,9 @@
 # DBS World Cup competition
   #2018-06-14
 ################################
+#reference: 
+#https://fivethirtyeight.com/features/how-our-2018-world-cup-predictions-work/
+#https://www.mango-solutions.com/blog/another-prediction-of-fifa-world-cup-2018
 
 ################################
   #Package management
