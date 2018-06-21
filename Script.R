@@ -46,6 +46,6 @@ df.player <- read.csv(url4)
 View(df.player)
 
 #players data2
-url5 <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/FIFA18players.R"
-source(url5)
-df.player2 <- pdf_data
+url5 <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/Data/PlayerList.csv"
+df.player18 <- read.csv(url5)
+
