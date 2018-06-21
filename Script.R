@@ -36,9 +36,9 @@ v.cty <- as.character(df.schedule2$team)
 #historical match result
 url3 <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/historical.csv"
 df.result <- read.csv(url3)
-View(df.result)
+#View(df.result)
 df.result2 <- df.result %>%
-                filter(home_team %in% v.cty | away_team %in% v.cty) %>% # filter those attend 2018 world cup only
+                filter(home_team %in% v.cty & away_team %in% v.cty) %>% # filter those attend 2018 world cup only
                 filter((home_team == 'Russia' & neutral == FALSE) | (home_team != 'Russia' & away_team != 'Russia' & neutral == TRUE))  # consider home effect
 
 #players data
