@@ -42,7 +42,7 @@ df.schedule2 <- read.csv(file=url2)
 #View(df.schedule1)
 #View(df.schedule2)
 
-v.cty <- as.character(df.schedule2$team)
+v.cty <- unique(as.character(df.schedule2$team))
 
 #historical match result
 url3 <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/historical.csv"
@@ -59,7 +59,7 @@ df.result2 <- df.result %>%
                          ifelse(tournament ==  'Friendly', 0.2,0.4))) %>% 
   filter(home_team %in% v.cty & away_team %in% v.cty) %>% # filter those attend 2018 world cup only
   filter((home_team == 'Russia' & neutral == FALSE) | (home_team != 'Russia' & away_team != 'Russia' & neutral == TRUE)) %>% # consider home effect
-  filter(date >= as.Date('2010-01-01')) %>%
+  filter(date >= as.Date('2000-01-01')) %>%
   bind_rows(df.schedule1) %>%
   filter(!is.na(home_score))#filter those long time ago
 
