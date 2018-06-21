@@ -41,7 +41,7 @@ df.result2 <- df.result %>%
                 mutate(date=as.Date(date)) %>%
                 filter(home_team %in% v.cty & away_team %in% v.cty) %>% # filter those attend 2018 world cup only
                 filter((home_team == 'Russia' & neutral == FALSE) | (home_team != 'Russia' & away_team != 'Russia' & neutral == TRUE)) %>% # consider home effect
-                filter(date >= '2010-01-01') #filter those long time ago
+                filter(date >= as.Date('2010-01-01')) #filter those long time ago
 #players data
 url4 <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/Player.csv"
 df.player <- read.csv(url4)
