@@ -11,7 +11,7 @@
 ################################
   #Package management
 ################################
-list.of.packages <- c("tidyverse","stringr", "rvest","dplyr","ggplot2","cowplot","tabulizer")
+list.of.packages <- c("tidyverse","stringr", "rvest","dplyr","ggplot2","cowplot","tabulizer","lubridate")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 lapply(list.of.packages, require, character.only = TRUE)
@@ -44,3 +44,8 @@ df.result2 <- df.result %>%
 url4 <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/Player.csv"
 df.player <- read.csv(url4)
 View(df.player)
+
+#players data2
+url5 <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/FIFA18players.R"
+source(url5)
+df.player2 <- pdf_data
