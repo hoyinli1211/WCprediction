@@ -1,14 +1,14 @@
-suppressMessages(library(tidyverse))
-library(stringr)
-suppressMessages(library(lubridate))
-suppressMessages(library(cowplot))
+#suppressMessages(library(tidyverse))
+#library(stringr)
+#suppressMessages(library(lubridate))
+#suppressMessages(library(cowplot))
 
 # Note that I set warnings to FALSE because of some annoying (and intermittent)
 # issues with RJavaTools.
 
-library(tabulizer)
-url <- "https://github.com/davidkane9/wc18/raw/master/fifa_player_list_1.pdf"
-out <- extract_tables(url, output = "data.frame")
+#library(tabulizer)
+urlPlayer <- "https://github.com/davidkane9/wc18/raw/master/fifa_player_list_1.pdf"
+out <- extract_tables(urlPlayer, output = "data.frame")
 #We now have a 32 element list, each item a data frame of information about the 23 players on each team. Let’s combine this information into a single tidy tibble.
 
 # Note how bind_rows() makes it very easy to combine a list of compatible
