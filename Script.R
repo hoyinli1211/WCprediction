@@ -49,3 +49,8 @@ View(df.player)
 url5 <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/Data/PlayerList.csv"
 df.player18 <- read.csv(url5)
 View(df.player18)
+
+#team data
+url6 <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/Data/01%202018%20World%20Cup%20Team%20Statistics.csv"
+df.team <- read.csv(url6)
+View(df.team)
