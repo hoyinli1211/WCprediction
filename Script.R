@@ -6,6 +6,7 @@
 #https://fivethirtyeight.com/features/how-our-2018-world-cup-predictions-work/
 #https://www.mango-solutions.com/blog/another-prediction-of-fifa-world-cup-2018
 #https://rviews.rstudio.com/2018/06/14/player-data-for-the-2018-fifa-world-cup/ 
+#http://www.collective-behavior.com/publ/ELO.pdf
 
 ################################
   #Package management
