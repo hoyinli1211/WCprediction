@@ -11,7 +11,7 @@
 ################################
   #Package management
 ################################
-list.of.packages <- c("tidyverse","stringr", "rvest")
+list.of.packages <- c("tidyverse","stringr", "rvest","dplyr","ggplot2","cowplot")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 lapply(list.of.packages, require, character.only = TRUE)
