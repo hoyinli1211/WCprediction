@@ -28,8 +28,10 @@ url1 <- "https://projects.fivethirtyeight.com/soccer-api/international/2018/wc_m
 url2 <- "https://projects.fivethirtyeight.com/soccer-api/international/2018/wc_forecasts.csv"
 df.schedule1 <- read.csv(file=url1) %>%
                   mutate(date=as.Date(as.character(date)),
-                         home_team=as.character(team1),
-                         away_team=as.character(team2),
+                         home_team=as.character(home_team),
+                         home_team=ifelse(substr(home_team,1,5)=='Korea','South Korea',home_team),
+                         away_team=as.character(away_team),
+                         away_team=ifelse(substr(away_team,1,5)=='Korea','South Korea',away_team),
                          home_score=score1,
                          away_score=score2,
                          tournament='FIFA World Cup',
