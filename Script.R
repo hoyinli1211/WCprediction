@@ -48,4 +48,4 @@ View(df.player)
 #players data2
 url5 <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/Data/PlayerList.csv"
 df.player18 <- read.csv(url5)
-
+View(df.player18)
