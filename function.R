@@ -49,6 +49,12 @@ matchresult <- function(cty1, cty2) {
    return(final.result = paste0(home.score,'-',away.score))
 }
 
+simulation.matchresult <- function(df,n, cty1, cty2) {
+
+  df <- df %>% bind_rows(matchresult,cty1,cty2)
+  return(df)
+  
+}
 #sapply(v.cty,function(x) attack_rating(x))
 #sapply(v.cty,function(x) defence_rating(x))
 #sapply(v.cty,function(x) attack_rating2(x))
