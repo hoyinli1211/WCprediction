@@ -52,7 +52,7 @@ matchresult <- function(cty1, cty2) {
 simulation.matchresult <- function(df,n, cty1, cty2) {
   
   for (i = 1:n) {
-    df <- df %>% bind_rows(matchresult,cty1,cty2)
+    df <- df %>% bind_rows_(matchresult,cty1,cty2)
   }
   return(df)
   
