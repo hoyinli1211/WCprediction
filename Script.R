@@ -27,18 +27,18 @@ lapply(list.of.packages, require, character.only = TRUE)
 url1 <- "https://projects.fivethirtyeight.com/soccer-api/international/2018/wc_matches.csv"
 url2 <- "https://projects.fivethirtyeight.com/soccer-api/international/2018/wc_forecasts.csv"
 df.schedule1 <- read.csv(file=url1) %>%
-                  mutate(date=as.Date(as.character(date)),
-                         home_team=as.character(team1),
-                         home_team=ifelse(substr(home_team,1,5)=='Korea','South Korea',home_team),
-                         away_team=as.character(team2),
-                         away_team=ifelse(substr(away_team,1,5)=='Korea','South Korea',away_team),
-                         home_score=score1,
-                         away_score=score2,
-                         tournament='FIFA World Cup',
-                         city='',
-                         country='Russia',
-                         neutral=ifelse(team1!='Russia' & team2!='Russia',TRUE,FALSE),
-                         weight=0.8)
+  mutate(date=as.Date(as.character(date)),
+         home_team=as.character(team1),
+         home_team=ifelse(substr(home_team,1,5)=='Korea','South Korea',home_team),
+         away_team=as.character(team2),
+         away_team=ifelse(substr(away_team,1,5)=='Korea','South Korea',away_team),
+         home_score=score1,
+         away_score=score2,
+         tournament='FIFA World Cup',
+         city='',
+         country='Russia',
+         neutral=ifelse(team1!='Russia' & team2!='Russia',TRUE,FALSE),
+         weight=0.8)
 df.schedule1 <- df.schedule1[,c(1,21:ncol(df.schedule1))]
 df.schedule2 <- read.csv(file=url2) 
 #View(df.schedule1)
@@ -53,7 +53,9 @@ df.result <- read.csv(url3)
 df.result2 <- df.result %>%
   mutate(date=as.Date(as.character(date)),
          home_team=as.character(home_team),
+         home_team=ifelse(substr(home_team,1,5)=='Korea','South Korea',home_team),
          away_team=as.character(away_team),
+         away_team=ifelse(substr(away_team,1,5)=='Korea','South Korea',away_team),
          tournament=as.character(tournament),
          city=as.character(city),
          country=as.character(country),
@@ -80,3 +82,11 @@ df.player18 <- read.csv(url5)
 url6 <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/Data/01%202018%20World%20Cup%20Team%20Statistics.csv"
 df.team <- read.csv(url6)
 #View(df.team)
+
+
+#Attack and defense score
+url7 <- 'https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/function.R'
+source(url7)
+
+sapply(v.cty,function(x) attack_rating(x))
+sapply(v.cty,function(x) defence_rating(x))
