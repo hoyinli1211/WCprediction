@@ -39,7 +39,8 @@ df.schedule1 <- read.csv(file=url1) %>%
          city='',
          country='Russia',
          neutral=ifelse(team1!='Russia' & team2!='Russia',TRUE,FALSE),
-         weight=0.8)
+         weight=0.8,
+         weight1=0.6)
 df.schedule1 <- df.schedule1[,c(1,21:ncol(df.schedule1))]
 df.schedule2 <- read.csv(file=url2) 
 #View(df.schedule1)
