@@ -92,3 +92,5 @@ source(url7)
 
 sapply(v.cty,function(x) attack_rating(x))
 sapply(v.cty,function(x) defence_rating(x))
+sapply(v.cty,function(x) attack_rating2(x))
+sapply(v.cty,function(x) defence_rating2(x))
