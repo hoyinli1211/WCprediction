@@ -54,7 +54,10 @@ simulation.matchresult <- function(n, cty1, cty2) {
   df <- data.frame(result=character())
   
   for (i in 1:n) {
-    df <- df %>% bind_rows(matchresult(cty1,cty2))
+    
+    df2 <- data.frame(result=matchresult(cty1,cty2))
+    
+    df <- df %>% bind_rows(df2)
   }
   return(df)
   
