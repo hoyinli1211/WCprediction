@@ -23,7 +23,7 @@ attack_rating2 <- function(cty) {
   df <- df.result2 %>% 
           filter(home_team==cty | away_team==cty) %>%
           mutate(attack=ifelse(home_team==cty, home_score,away_score),
-                 finalweight=weight*weight1,
+                 finalweight=weight*weight2,
                  prodsum=attack*finalweight)
   return(sum(df$prodsum)/sum(df$finalweight))
 }
@@ -33,7 +33,7 @@ defence_rating2 <- function(cty) {
   df <- df.result2 %>% 
     filter(home_team==cty | away_team==cty) %>%
     mutate(defence=ifelse(home_team==cty, away_score, home_score),
-                 finalweight=weight*weight1,
+                 finalweight=weight*weight2,
                  prodsum=attack*finalweight)
   return(sum(df$prodsum)/sum(df$finalweight))
 }
