@@ -49,7 +49,7 @@ matchresult <- function(cty1, cty2) {
    return(final.result = paste0(home.score,'-',away.score))
 }
 
-simulation.matchresult <- function(df,n, cty1, cty2) {
+simulation.matchresult <- function(n, cty1, cty2) {
   
   df <- data.frame(result=character())
   
