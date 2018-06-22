@@ -1,7 +1,8 @@
 url.src1 <- 'https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/Script.R'
 source(url.src1)
 
-url.src2 <- ''
+url.src2 <- 'https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/function.R'
+source(url.src2)
 
 x <- simulation.matchresult(10000, 'Serbia', 'Switzerland')
 
