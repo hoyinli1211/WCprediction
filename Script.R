@@ -7,6 +7,7 @@
 #https://www.mango-solutions.com/blog/another-prediction-of-fifa-world-cup-2018
 #https://rviews.rstudio.com/2018/06/14/player-data-for-the-2018-fifa-world-cup/ 
 #http://www.collective-behavior.com/publ/ELO.pdf
+#https://www.e-sciencecentral.org/upload/csam/pdf/csam-23-297.pdf
 
 ################################
 #Package management
