@@ -1,5 +1,3 @@
-
-
 attack_rating <- function(cty) {
   
   df <- df.result2 %>% 
@@ -38,9 +36,22 @@ defence_rating2 <- function(cty) {
   return(sum(df$prodsum)/sum(df$finalweight))
 }
 
+matchresult <- function(cty1, cty2) {
+
+   attack.cty1 = attack_rating2(cty1)
+   defence.cty1 = defence_rating2(cty1)
+   attack.cty2 = attack_rating2(cty2)
+   defence.cty2 = defence_rating2(cty2)
+  
+   home.score = rpois(1,attack.cty1*defence.cty2)
+   away.score = rpois(1,attack.cty2*defence.cty1)
+  
+   final.result = paste0(home.score,'-',away.score)
+}
+
+#sapply(v.cty,function(x) attack_rating(x))
+#sapply(v.cty,function(x) defence_rating(x))
+#sapply(v.cty,function(x) attack_rating2(x))
+#sapply(v.cty,function(x) defence_rating2(x))
 
 
-sapply(v.cty,function(x) attack_rating(x))
-sapply(v.cty,function(x) defence_rating(x))
-sapply(v.cty,function(x) attack_rating2(x))
-sapply(v.cty,function(x) defence_rating2(x))
