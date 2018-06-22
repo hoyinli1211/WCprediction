@@ -46,7 +46,7 @@ matchresult <- function(cty1, cty2) {
    home.score = rpois(1,attack.cty1*defence.cty2)
    away.score = rpois(1,attack.cty2*defence.cty1)
   
-   final.result = paste0(home.score,'-',away.score)
+   return(final.result = paste0(home.score,'-',away.score))
 }
 
 #sapply(v.cty,function(x) attack_rating(x))
