@@ -62,13 +62,13 @@ df.result2 <- df.result %>%
          city=as.character(city),
          country=as.character(country),
          weight = ifelse(tournament %in% c('FIFA World Cup','FIFA World Cup qualification'), 0.8, 
-                         ifelse(tournament ==  'Friendly', 0.2,0.4))) %>% 
+                         ifelse(tournament ==  'Friendly', 0.2,0.4)),
+         weight1=ifelse(date>=as.Date('2018-01-01'),0.8,ifelse(date>=as.Date('2016-01-01'),0.4,0.2))) %>% 
   filter(home_team %in% v.cty & away_team %in% v.cty) %>% # filter those attend 2018 world cup only
   filter((home_team == 'Russia' & neutral == FALSE) | (home_team != 'Russia' & away_team != 'Russia' & neutral == TRUE)) %>% # consider home effect
   filter(date >= as.Date('2000-01-01')) %>%
   bind_rows(df.schedule1) %>%
   filter(!is.na(home_score))#filter those long time ago
-
 
 #players data
 url4 <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/Player.csv"
