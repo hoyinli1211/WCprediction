@@ -117,9 +117,13 @@ df1 <- df.match.result %>%
         mutate(score.diff=score1-score2,
                rank.diff=june_fifa_rank.x-june_fifa_rank.y,
                score.diff2=abs(score.diff),
-               rank.diff2=ifelse(score.diff< 0, -rank.diff, rank.diff))
+               rank.diff2=ifelse(score.diff< 0, -rank.diff, rank.diff),
+               race=ifelse(score.diff<0,paste(team2,team1,sep='-'),paste(team1,team2,sep='-')))
+  
 
-ggplot(df1%>%filter(!is.na(score1)), aes(x=rank.diff2, y=score.diff2)) + geom_point()
+ggplot(df1%>%filter(!is.na(score1)), aes(x=rank.diff2, y=score.diff2)) + 
+  geom_point() +
+  geom_text(aes(label=race),hjust=0.5, vjust=0)
 
 
 ###################
