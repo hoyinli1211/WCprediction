@@ -23,40 +23,46 @@ url.player.disciplinary <- "https://www.fifa.com/worldcup/statistics/players/dis
 df.team.topgoals <- read_html(url.team.topgoals) %>%
                 html_nodes("table") %>%
                 .[1] %>%
-                html_table(fill=TRUE)
+                html_table(fill=TRUE) %>%
+                .[[1]]
 
 df.team.attempts <- read_html(url.team.attempts) %>%
-  html_nodes("table") %>%
-  .[1] %>%
-  html_table(fill=TRUE)
+                      html_nodes("table") %>%
+                      .[1] %>%
+                      html_table(fill=TRUE) %>%
+                      .[[1]]
 
 df.team.disciplinary <- read_html(url.team.disciplinary) %>%
-  html_nodes("table") %>%
-  .[1] %>%
-  html_table(fill=TRUE)
+                          html_nodes("table") %>%
+                          .[1] %>%
+                          html_table(fill=TRUE) %>%
+                          .[[1]]
 
   #player
 
 df.player.main <- read.csv(url.player.main)
 
 df.player.scored <- read_html(url.player.scored) %>%
-  html_nodes("table") %>%
-  .[1] %>%
-  html_table(fill=TRUE) %>%
-  .[[1]]
+                      html_nodes("table") %>%
+                      .[1] %>%
+                      html_table(fill=TRUE) %>%
+                      .[[1]]
 colnames(df.player.scored) <- c('rank.scored','player','goal.scored','goal.assist','mins.player','match.play','penalties.score','left.scored','right.scored','head.scored')
 
 df.player.saves <- read_html(url.player.saves) %>%
-  html_nodes("table") %>%
-  .[1] %>%
-  html_table(fill=TRUE)
+                    html_nodes("table") %>%
+                    .[1] %>%
+                    html_table(fill=TRUE) %>%
+                    .[[1]]
 
 df.player.shots <- read_html(url.player.shots) %>%
-  html_nodes("table") %>%
-  .[1] %>%
-  html_table(fill=TRUE)
+                    html_nodes("table") %>%
+                    .[1] %>%
+                    html_table(fill=TRUE) %>%
+                    .[[1]]
 
 df.player.disciplinary <- read_html(url.player.disciplinary) %>%
-  html_nodes("table") %>%
-  .[1] %>%
-  html_table(fill=TRUE)
+                            html_nodes("table") %>%
+                            .[1] %>%
+                            html_table(fill=TRUE) %>%
+                            .[[1]]
