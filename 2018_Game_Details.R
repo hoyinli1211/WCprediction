@@ -6,18 +6,18 @@ library(rvest)
 name2 <- function(name){
   
   v.name <- strsplit(name," ")[[1]]
-  v.first <- as.character()
+  v.first <- 
   v.last <- as.character()
   
   for (i in v.name) {
     if (toupper(i)==i) {
-      v.last <- paste(v.last,i,sep=" ")  
+      v.last <- paste(trimws(v.last),i,sep=" ")  
     }
     else {
-      v.first <- paste(v.first,i,sep=" ")        
+      v.first <- paste(trimws(v.first),i,sep=" ")        
     }
   }
-  v.name.new <- trimws(paste(v.last,v.first,sep=" "))
+  v.name.new <- trimws(paste(trimws(v.last),trimws(v.first),sep=" "))
   return(v.name.new)
 }
 
@@ -109,4 +109,9 @@ df.player.FIFA <- df.player.FIFA %>%
                     mutate_if(sapply(df.player.FIFA, is.factor), as.character)
 
 df.player.MAIN <- df.player.main %>% left_join(df.player.FIFA, by=c('FIFA.Popular.Name'='Player2'))
+
+#checking
+dim(df.player.MAIN %>% filter(!is.na(Player)))
+unique(c(df.player.scored$Player,df.player.saves$Player, df.player.shots$Player, df.player.disciplinary$Player))
+
 
