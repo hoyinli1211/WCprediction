@@ -1,5 +1,6 @@
 library(rvest)
 
+rm(list=ls())
 #######################
 #function
 #######################
@@ -28,7 +29,7 @@ name2 <- function(name){
 #url 
 #######################
   #match result
-url.match.result1 <- "https://projects.fivethirtyeight.com/soccer-api/international/2018/wc_matches.csv"
+url.match.result <- "https://projects.fivethirtyeight.com/soccer-api/international/2018/wc_matches.csv"
 
   #teams statistics
 url.team.main <- "https://projects.fivethirtyeight.com/soccer-api/international/2018/wc_forecasts.csv"
@@ -58,7 +59,7 @@ df.team.main <- read.csv(url.team.main) %>%
                   group_by(team) %>%
                   summarise(group=head(group,1)) %>%
                   arrange(group) %>%
-                  mutate(team=ifelse(team=='Iran','IR Iran',ifelse(team=='South Korean','Korea Republic',team)))
+                  mutate(team=ifelse(team=='Iran','IR Iran',ifelse(team=='South Korea','Korea Republic',team)))
 #View(df.team.topgoals)  
 
 df.team.topgoals <- read_html(url.team.topgoals) %>%
@@ -88,7 +89,15 @@ df.team.disciplinary <- read_html(url.team.disciplinary) %>%
 df.team.main <- df.team.main %>% 
                   left_join(df.team.topgoals, by=c('team')) %>%
                   left_join(df.team.attempts, by=c('team')) %>%
-                  left_join(df.team.disciplinary, by=c('team')) 
+                  left_join(df.team.disciplinary, by=c('team')) %>%
+                  select(c(1,2,6:12,17:21,25:32))
+colnames(df.team.main) <- c('team','group',
+                            'goal.for','goal.scored','goal.against','goal.penalty','goal.ownfor','goal.openplay','goal.setpiece',
+                            'shots','shots.ontarget','shots.offtarget','shots.blocked','shots.woodwork',
+                            'match.played','match.yellow','match.yellow2red','match.red','match.foulcomitted','match.foulsuffered','match.penaltysuffered','team.code')
+df.team.main <- df.team.main %>%
+                  select(c(1,2,22,15,3:14,16:21))
+#View(df.team.main)
 
   #player
 
