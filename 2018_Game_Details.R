@@ -27,8 +27,11 @@ name2 <- function(name){
 #######################
 #url 
 #######################
+  #match result
+url.match.result1 <- "https://projects.fivethirtyeight.com/soccer-api/international/2018/wc_matches.csv"
 
   #teams statistics
+url.team.main <- "https://projects.fivethirtyeight.com/soccer-api/international/2018/wc_forecasts.csv"
 url.team.topgoals <- "https://www.fifa.com/worldcup/statistics/teams/goal-scored"
 url.team.attempts <- "https://www.fifa.com/worldcup/statistics/teams/shots"
 url.team.disciplinary <- "https://www.fifa.com/worldcup/statistics/teams/disciplinary"
@@ -44,25 +47,48 @@ url.player.disciplinary <- "https://www.fifa.com/worldcup/statistics/players/dis
 #######################
 #data scrape
 #######################
+  #match result
+df.match.result <- read.csv(url.match.result) %>%
+                    mutate_if(is.factor, as.character) %>%
+                    select(c(1,4,5,13,14))
 
   #team
+df.team.main <- read.csv(url.team.main) %>%
+                  mutate_if(is.factor, as.character) %>%
+                  group_by(team) %>%
+                  summarise(group=head(group,1)) %>%
+                  arrange(group) %>%
+                  mutate(team=ifelse(team=='Iran','IR Iran',ifelse(team=='South Korean','Korea Republic',team)))
+#View(df.team.topgoals)  
+
 df.team.topgoals <- read_html(url.team.topgoals) %>%
-                html_nodes("table") %>%
-                .[1] %>%
-                html_table(fill=TRUE) %>%
-                .[[1]]
+                      html_nodes("table") %>%
+                      .[1] %>%
+                      html_table(fill=TRUE) %>%
+                      .[[1]] %>%
+                      mutate(team=trimws(substr(Team,1,nchar(Team)-4)),
+                             team.code=substr(Team,nchar(Team)-2,nchar(Team))) 
 
 df.team.attempts <- read_html(url.team.attempts) %>%
                       html_nodes("table") %>%
                       .[1] %>%
                       html_table(fill=TRUE) %>%
-                      .[[1]]
+                      .[[1]] %>%
+                      mutate(team=trimws(substr(Team,1,nchar(Team)-4)),
+                             team.code=substr(Team,nchar(Team)-2,nchar(Team))) 
 
 df.team.disciplinary <- read_html(url.team.disciplinary) %>%
                           html_nodes("table") %>%
                           .[1] %>%
                           html_table(fill=TRUE) %>%
-                          .[[1]]
+                          .[[1]] %>%
+                          mutate(team=trimws(substr(Team,1,nchar(Team)-4)),
+                                 team.code=substr(Team,nchar(Team)-2,nchar(Team)))
+
+df.team.main <- df.team.main %>% 
+                  left_join(df.team.topgoals, by=c('team')) %>%
+                  left_join(df.team.attempts, by=c('team')) %>%
+                  left_join(df.team.disciplinary, by=c('team')) 
 
   #player
 
