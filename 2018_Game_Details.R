@@ -1,4 +1,5 @@
 library(rvest)
+library(ggplot2)
 
 rm(list=ls())
 #######################
@@ -33,6 +34,7 @@ url.match.result <- "https://projects.fivethirtyeight.com/soccer-api/internation
 
   #teams statistics
 url.team.main <- "https://projects.fivethirtyeight.com/soccer-api/international/2018/wc_forecasts.csv"
+url.team.rank <- "https://raw.githubusercontent.com/hoyinli1211/WCprediction/master/Data/01%202018%20World%20Cup%20Team%20Statistics.csv"
 url.team.topgoals <- "https://www.fifa.com/worldcup/statistics/teams/goal-scored"
 url.team.attempts <- "https://www.fifa.com/worldcup/statistics/teams/shots"
 url.team.disciplinary <- "https://www.fifa.com/worldcup/statistics/teams/disciplinary"
@@ -51,8 +53,9 @@ url.player.disciplinary <- "https://www.fifa.com/worldcup/statistics/players/dis
   #match result
 df.match.result <- read.csv(url.match.result) %>%
                     mutate_if(is.factor, as.character) %>%
-                    select(c(1,4,5,13,14))
-
+                    select(c(1,4,5,13,14)) %>%
+                    mutate(team1=ifelse(team1=='Iran','IR Iran',ifelse(team1=='South Korea','Korea Republic',team1)),
+                           team2=ifelse(team2=='Iran','IR Iran',ifelse(team2=='South Korea','Korea Republic',team2)))
   #team
 df.team.main <- read.csv(url.team.main) %>%
                   mutate_if(is.factor, as.character) %>%
@@ -60,7 +63,12 @@ df.team.main <- read.csv(url.team.main) %>%
                   summarise(group=head(group,1)) %>%
                   arrange(group) %>%
                   mutate(team=ifelse(team=='Iran','IR Iran',ifelse(team=='South Korea','Korea Republic',team)))
-#View(df.team.topgoals)  
+#View(df.team.topgoals) 
+
+df.team.rank <- read.csv(url.team.rank) %>%
+                  mutate_if(is.factor, as.character) %>%
+                  mutate(team=ifelse(team=='Iran','IR Iran',ifelse(team=='South Korea','Korea Republic',team))) %>%
+                  filter(team %in% df.team.main$team)
 
 df.team.topgoals <- read_html(url.team.topgoals) %>%
                       html_nodes("table") %>%
@@ -98,6 +106,24 @@ colnames(df.team.main) <- c('team','group',
 df.team.main <- df.team.main %>%
                   select(c(1,2,22,15,3:14,16:21))
 #View(df.team.main)
+
+###################
+  # data exploratory on team statistics
+
+    #rank difference versus score difference
+df1 <- df.match.result %>% 
+        left_join(df.team.rank[,c(1,9)], by=c('team1'='team')) %>%
+        left_join(df.team.rank[,c(1,9)], by=c('team2'='team')) %>%
+        mutate(score.diff=score1-score2,
+               rank.diff=june_fifa_rank.x-june_fifa_rank.y,
+               score.diff2=abs(score.diff),
+               rank.diff2=ifelse(score.diff< 0, -rank.diff, rank.diff))
+
+ggplot(df1%>%filter(!is.na(score1)), aes(x=rank.diff2, y=score.diff2)) + geom_point()
+
+
+###################
+
 
   #player
 
